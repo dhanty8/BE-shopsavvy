@@ -32,6 +32,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           isEmail: { msg: "email format wrong!" },
+          isUnique: async (value) => {
+            const user = await User.findOne({ where: { email: value } });
+
+            if (user) throw new Error("Email is already used!");
+          },
         },
       },
       password: {

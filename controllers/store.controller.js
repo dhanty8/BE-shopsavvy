@@ -15,8 +15,10 @@ module.exports = {
   },
   deleteStore: async (req, res) => {
     try {
+      console.log("test");
       const id = req.params.id;
       const store = await Store.destroy({ where: { id } });
+      console.log(res);
       statusMessage(res, 201, true, "delete store successfull!", store);
     } catch (error) {
       statusMessage(res, 500, false, error.message);
