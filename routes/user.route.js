@@ -4,10 +4,15 @@ const {
   register,
   deleteUser,
   getUser,
+  signIn,
+  updateUser,
 } = require("../controllers/user.controller");
+const authentication = require("../middlewares/authentication");
 
 router.post("/register", register);
-router.get("/:id", getUser);
-router.delete("/delete/:id", deleteUser);
+router.post("/signin", signIn);
+router.get("/:id", authentication, getUser);
+router.put("/update/:id", authentication, updateUser);
+router.delete("/delete/:id", authentication, deleteUser);
 
 module.exports = router;

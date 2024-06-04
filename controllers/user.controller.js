@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken");
 
 const statusMessage = require("../helpers/status.message");
 
+const secretKey = process.env.SECRET_KEY;
+
 module.exports = {
   register: async (req, res) => {
     try {
@@ -27,7 +29,11 @@ module.exports = {
             email: user.email,
             role: user.role,
           };
-          const token = jwt.sign(payloadToken);
+          const token = jwt.sign(payloadToken, secretKey);
+
+          const resData = { name: user.firstName, token: `Bearer ${token}` };
+
+          statusMessage(res, 200, true, "Sign in success!", resData);
         } else {
           statusMessage(res, 400, false, "email or password is wrong!");
         }

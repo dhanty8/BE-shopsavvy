@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.hasOne(models.Store);
+      User.hasOne(models.Cart, { foreignKey: "userId", as: "userCart" });
+      // User.hasMany(models.Transaction);
     }
   }
   User.init(
